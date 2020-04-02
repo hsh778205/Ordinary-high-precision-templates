@@ -3,7 +3,7 @@ High-precision computing for ordinary numbers (non-floating points) for function
 
 I thought it was a good code for myself, although I didn't encapsulate it as a class or put it in the header file.
 
-I think it's just a structure, just fine
+I think it's just a structure, just fine.
 
 Here's what to say.
 
@@ -21,7 +21,83 @@ Order (.factor))
 
 Power (.power()))
 
-Minimum common multiple (gcd() or .gcd())
+greatest common divisor (gcd() or .gcd())
 
 Through Friends, you can even use cout and cin directly to input and output!
+
+## Example
+
+### Statement
+
+```
+number a,b;
+
+number a(10),b(20);//Directly assign a to 10
+```
+
+
+### input
+
+```
+cin>>a>>b;
+
+a.input();b.input();//Of course, if you like, you can use this...
+```
+
+
+### output
+
+```
+cout<<a<<b;
+
+a.output();b.output();//Maybe no one likes it...
+```
+
+
+### Assignment
+
+```
+a=10,b=20;
+```
+
+
+### Add and subtract, multiply and subtract
+
+```
+number c=a+b;
+
+c=a-b;
+
+c=a*b;
+
+c=a/b;
+```
+
+
+### greatest common divisor
+
+```
+c=a.gcd(b);
+
+c=gcd(a,b);
+```
+
+
+### Factorial
+
+```
+c=a.factor();
+```
+
+
+### Power
+
+```
+c=a.power(b);
+
+c=power(a,b);
+
+```
+
+
 
