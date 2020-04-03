@@ -389,18 +389,21 @@ number power(number a,number n){
 
 int main()
 {
-	number a,b,c;
-	c=0;
-	cout<<"output1\n";
-	c.output();
-	cout<<"output2\n";
-	cout<<c;
-	cin>>a>>b;
-	cout<<"a+b="<<(a+b)<<endl;
-	cout<<"a-b="<<a-b<<endl;
-    cout<<"a*b="<<a*b<<endl;
-    cout<<"×¼±¸a/2";
-    cout<<"a/2="<<a/2<<endl;
-    cout<<"a/b="<<a/b<<endl;
-	return 0;
+number a,b,c;
+    cin>>a>>b;
+    c=a+b;
+	cout<<"a+b="<<c<<endl;
+	c=a-b;
+	cout<<"a-b="<<c<<endl;
+    c=a*b;
+    cout<<"a*b="<<c<<endl;
+    c=a.division2();
+    cout<<"a/2="<<c<<endl;
+    c=a/b;
+    cout<<"a/b="<<c<<endl;
+    c=a.factor();
+    cout<<"a!="<<c<<endl;
+    c=gcd(a,b);
+    cout<<"gcd(a,b)="<<c;
+    return 0;
 }
