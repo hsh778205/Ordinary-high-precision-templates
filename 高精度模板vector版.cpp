@@ -9,6 +9,8 @@ bool insigma(char ch){
 	return ch=='-'||('0'<=ch&&ch<='9');
 }
 
+
+
 struct number{
 	vector<int> num; 
 	bool fu;	
@@ -52,17 +54,18 @@ struct number{
 	}
 	*/
 	number operator= (number x){
+		cout<<"fuzhi\n";
 		fu=x.fu;
 		num=x.num;
 		return *this;
 	}
 	
 	number (int x){
-		this->clear();
+		cout<<"经过yinshi转换\n";
+		clear();
 		fu=(x<0);
 		num.push_back(abs(x));
 		if(x>9) carry_bit();
-		if(x<-9) back_space();
 	}
 	
 	
@@ -92,6 +95,9 @@ struct number{
     friend istream & operator>> (istream &in, number &obj);	
 	friend ostream & operator<< (ostream &out, number obj);
 	friend number abs(number x);
+	friend number max(number a,number b);
+	friend number min(number a,number b);
+	
 	
 	int compare(number x){//2=	1> 0<
 		if(fu^x.fu){
@@ -167,38 +173,25 @@ struct number{
 	}
 	
 	void carry_bit(){
-		for(unsigned int i=0;i<num.size();i++)
-		if(num[i]>9)
-		{
-			(*this)[i+1]+=num[i]/10;
-			(*this)[i]%=10;
+		cout<<"zhelidedaoxiaoshi "<<num.size()<<endl;
+		for(unsigned int i=0;i<num.size();i++){
+			cout<<"检查第"<<i<<"位溢出\n";
+			cout<<"第"<<i<<"位是"<<num[i]<<endl; 
+			if(num[i]>9)
+			{
+				cout<<"在第"<<i<<"位上发现溢出\n"; 
+				(*this)[i+1]+=num[i]/10;
+				num[i]%=10;
+			}
 		}
-		/*
-		cout<<"当前：";
-		for(int i=size()-1;i>=0;i--) cout<<num[i];cout<<endl;
-		updata_len();
-		cout<<"更新长度\n";cin.get();
-		*/
+		cout<<"jinwei over\n";
 	}
 	
 	void back_space(){
-//		for(unsigned int i=0;i<num.size();i++){
-//			while(num[i]<0) num[i]+=10,num[i+1]--;
-//		}
+		cout<<"开始退位\n";
 		carry_bit();
+		cout<<"tuiweijieshu\n";
 	}
-	
-	/*
-	number operator+ (const int & x){
-		if(*this<x) ;
-		
-		number newness=*this;
-		newness.num.push_back(0);
-		newness.num[0]+=x;
-		if(newness.num[0]>9) newness.carry_bit();
-		return newness;
-	}
-	*/
 	
 	number add(number x){
 		number res=*this;
@@ -238,13 +231,15 @@ struct number{
 	
 	number operator- (number x){
 		number i,j;
-		if() {i=*this,j=x;}
-		else {i=x,j=*this;}
-		for(unsigned int t=0;t<num.size();t++)
-		{
-			i.num[t]-=j.num[t];
+		i=max(*this,x);
+		j=min(*this,x);
+		if(fu==x.fu){
+			
 		}
-		i.back_space();
+		else{
+			
+		}
+		
 		return i;
 	}
 	
@@ -293,17 +288,16 @@ struct number{
 	
 	number operator/ (number x){
 //		if(x==2) return this->division2();
-		
-		number l,r,mid; r=mid=abs(*this);
-		
-		for(;l<mid;mid=l+r,mid=mid.division2()){
-			if(mid*abs(x)>abs(*this)) r=mid; 
-			else l=mid;
-//			cout<<l<<endl<<r<<endl<<mid<<endl<<endl;getchar();
+		number a=abs(*this),b=abs(x),c;
+		for(c=0;c<=a;c++)
+		{
+			cout<<"try"<<c<<endl;
+			if(c*b<=a&&(c+1)*b>a){
+				break;
+			}
 		}
-		mid.fu=x.fu^fu;
-		mid.fu=x.fu^fu;
-		return mid;
+		c.fu=x.fu^fu;
+		return c;
 	}
 	
 	number operator/= (number x){
@@ -320,6 +314,14 @@ struct number{
 		return *this=*this%x;
 	}
 };
+
+number max(number a,number b){
+	return a>b?a:b;
+}
+
+number min(number a,number b){
+	return a<b?a:b;
+}
 
 number abs(number x){
 	number rec=x;
@@ -387,14 +389,18 @@ number power(number a,number n){
 
 int main()
 {
-	number a=20,b(10),c;
+	number a,b,c;
+	c=0;
+	cout<<"output1\n";
+	c.output();
+	cout<<"output2\n";
+	cout<<c;
+	cin>>a>>b;
 	cout<<"a+b="<<(a+b)<<endl;
 	cout<<"a-b="<<a-b<<endl;
     cout<<"a*b="<<a*b<<endl;
     cout<<"准备a/2";
     cout<<"a/2="<<a/2<<endl;
     cout<<"a/b="<<a/b<<endl;
-    cout<<"a!="<<a.factor()<<endl;
-    cout<<"gcd(a,b)="<<gcd(a,b);
 	return 0;
 }
