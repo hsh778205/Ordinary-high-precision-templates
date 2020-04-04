@@ -387,6 +387,13 @@ number power(number a,number n){
 	return c;
 }
 
+number C(number r,number n)
+{
+	number res=1;
+	for(number i=0;i<r;i++) res*=n-i;
+	for(number i=0;i<r;i++)
+}
+
 int main()
 {
 number a,b,c;
