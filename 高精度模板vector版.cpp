@@ -35,7 +35,7 @@ struct number{
 	
 	int at(unsigned int i)
 	{
-		if(i>=num.size()||i<0) return -1;
+		if(i>=num.size()||i<0) return 0;
 		return num[i];
 	}
 	
@@ -43,25 +43,14 @@ struct number{
 		num.clear();
 		fu=0;
 	}
-	/*
-	number operator= (int x){//隐式转换
-		this->clear();
-		fu=(x<0);
-		num.push_back(abs(x));
-		if(x>9) carry_bit();
-		if(x<-9) back_space();
-		return *this;
-	}
-	*/
+
 	number operator= (number x){
-		cout<<"fuzhi\n";
 		fu=x.fu;
 		num=x.num;
 		return *this;
 	}
 	
 	number (int x){
-		cout<<"经过yinshi转换\n";
 		clear();
 		fu=(x<0);
 		num.push_back(abs(x));
@@ -82,12 +71,12 @@ struct number{
 	}
 	
 	void output(){
-		if(fu) cout<<"-";
+		if(fu) putchar('-');
 		bool flag=0;
 		for(int i=num.size();i>0;i--){
 			if(num[i]) flag=1;
 			if(num[i]>9) carry_bit();
-			if(flag) putchar(num[i]+'0');//putchar加速输出 
+			if(flag) putchar(num[i]+'0');
 		}
 		putchar(num[0]+'0');
 	}
@@ -107,13 +96,13 @@ struct number{
 		if(updata_len()!=x.updata_len()) return (size()>x.size())^fu;
 		for(int i=max(num.size(),x.num.size());i>=0;i--)
 		{
-			if(num[i]>x.num[i]) return !fu;//大于(1)
-			if(num[i]<x.num[i]) return fu;//小于(0)
+			if(num[i]>x.num[i]) return !fu;
+			if(num[i]<x.num[i]) return fu;
 		}
-		return 2;//等于
+		return 2;
 	}
 	
-	//利用compare()重载比较运算符 
+	//use compare() to modify operator
 	 
 	bool operator> (number x){return (compare(x)==1);} 
 	bool operator< (number x){return (compare(x)==0);}
@@ -173,24 +162,17 @@ struct number{
 	}
 	
 	void carry_bit(){
-		cout<<"zhelidedaoxiaoshi "<<num.size()<<endl;
 		for(unsigned int i=0;i<num.size();i++){
-			cout<<"检查第"<<i<<"位溢出\n";
-			cout<<"第"<<i<<"位是"<<num[i]<<endl; 
 			if(num[i]>9)
 			{
-				cout<<"在第"<<i<<"位上发现溢出\n"; 
 				(*this)[i+1]+=num[i]/10;
 				num[i]%=10;
 			}
 		}
-		cout<<"jinwei over\n";
 	}
 	
 	void back_space(){
-		cout<<"开始退位\n";
 		carry_bit();
-		cout<<"tuiweijieshu\n";
 	}
 	
 	number add(number x){
@@ -277,12 +259,10 @@ struct number{
 	number division2(){
 		number res=*this;
 		for(unsigned int i=res.size()-1;i>0;i--){
-			cout<<"第"<<i<<"位ing\n"; 
 			if((res[i]&1)) res[i-1]+=10;
 			res[i]>>=1;
 		}
 		res[0]>>=1;
-		cout<<"结束/2\n";
 		return res;
 	}
 	
@@ -291,7 +271,6 @@ struct number{
 		number a=abs(*this),b=abs(x),c;
 		for(c=0;c<=a;c++)
 		{
-			cout<<"try"<<c<<endl;
 			if(c*b<=a&&(c+1)*b>a){
 				break;
 			}
